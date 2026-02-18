@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCL Participants Map</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Leaflet MarkerCluster CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="header-top">
+                <div class="decorative-pegs-left">
+                    <span class="peg peg-yellow"></span>
+                    <span class="peg peg-blue"></span>
+                    <span class="peg peg-red"></span>
+                    <span class="peg-gap"></span>
+                    <span class="peg-gap"></span>
+                    <span class="peg peg-green"></span>
+                    <span class="peg peg-yellow"></span>
+                </div>
+                <h1 id="pageTitle">LCL Participants Map</h1>
+                <div class="decorative-pegs-right">
+                    <span class="peg peg-blue"></span>
+                    <span class="peg-gap"></span>
+                    <span class="peg-gap"></span>
+                    <span class="peg-gap"></span>
+                    <span class="peg peg-red"></span>
+                    <span class="peg peg-green"></span>
+                    <span class="peg peg-yellow"></span>
+                </div>
+            </div>
+            <div class="header-bottom">
+                <div class="header-bottom-left">
+                    <div class="counter">
+                        <span id="participantCount">0</span> <span id="participantLabel">Participants</span>
+                    </div>
+                    <div class="decorative-pegs-bottom-left">
+                        <span class="peg peg-green"></span>
+                        <span class="peg peg-red"></span>
+                        <span class="peg-gap"></span>
+                        <span class="peg peg-blue"></span>
+                        <span class="peg peg-yellow"></span>
+                        <span class="peg-gap"></span>
+                        <span class="peg-gap"></span>
+                        <span class="peg peg-green"></span>
+                    </div>
+                </div>
+                <button id="addBtn" class="btn btn-primary">Add Yourself</button>
+                <div class="header-bottom-right">
+                    <div class="decorative-pegs-bottom-right">
+                        <span class="peg peg-blue"></span>
+                        <span class="peg-gap"></span>
+                        <span class="peg peg-yellow"></span>
+                        <span class="peg peg-red"></span>
+                        <span class="peg-gap"></span>
+                        <span class="peg-gap"></span>
+                        <span class="peg peg-green"></span>
+                        <span class="peg peg-blue"></span>
+                    </div>
+                    <select id="languageSelector" class="language-selector">
+                        <option value="en">English</option>
+                        <option value="it">Italiano</option>
+                        <option value="es">Español</option>
+                        <option value="pt">Português</option>
+                        <option value="ar">العربية</option>
+                        <option value="fr">Français</option>
+                        <option value="tr">Türkçe</option>
+                        <option value="ja">日本語</option>
+                    </select>
+                </div>
+            </div>
+        </header>
+
+        <div id="map"></div>
+
+        <!-- Modal for adding/editing pins -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="modalTitle">Add Yourself to the Map</h2>
+
+                <form id="pinForm">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required maxlength="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="about">About Me</label>
+                        <textarea id="about" name="about" rows="3" maxlength="500"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Location *</label>
+                        <input type="text" id="location" name="location" required placeholder="Start typing a location...">
+                        <div id="locationSuggestions" class="suggestions"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pinColor">Pin Color</label>
+                        <div class="color-picker-container">
+                            <input type="color" id="pinColor" name="pinColor" value="#3388ff">
+                            <button type="button" id="randomColorBtn" class="btn btn-small">🎲 Random</button>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="lat" name="lat">
+                    <input type="hidden" id="lng" name="lng">
+                    <input type="hidden" id="editToken" name="editToken">
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" id="deleteBtn" class="btn btn-danger" style="display: none;">Delete</button>
+                        <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                    </div>
+                </form>
+
+                <div id="successMessage" class="success-message" style="display: none;">
+                    <p><strong id="successTitle">Success!</strong> <span id="successMsg">Your pin has been added to the map.</span></p>
+                    <p id="successEditMsg">Save this link to edit or delete your pin later:</p>
+                    <div class="edit-link-container">
+                        <input type="text" id="editLink" readonly>
+                        <button id="copyBtn" class="btn btn-small">Copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Modal -->
+        <div id="adminModal" class="modal">
+            <div class="modal-content admin-modal-content">
+                <span class="close admin-close">&times;</span>
+                <h2 id="adminTitle">Admin Panel</h2>
+
+                <div id="adminLogin" class="admin-login">
+                    <form id="adminLoginForm">
+                        <div class="form-group">
+                            <label for="adminPassword" id="adminPasswordLabel">Password</label>
+                            <div class="password-input-container">
+                                <input type="password" id="adminPassword" required>
+                                <button type="button" id="togglePassword" class="btn-toggle-password" aria-label="Toggle password visibility">
+                                    <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path class="eye-open" d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle class="eye-open" cx="12" cy="12" r="3"></circle>
+                                        <path class="eye-closed" d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" style="display:none;"></path>
+                                        <line class="eye-closed" x1="1" y1="1" x2="23" y2="23" style="display:none;"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="adminLoginBtn">Login</button>
+                    </form>
+                </div>
+
+                <div id="adminPanel" class="admin-panel" style="display: none;">
+                    <div class="admin-header">
+                        <div class="admin-search">
+                            <input type="text" id="adminSearch" placeholder="Search pins by name or location..." class="admin-search-input">
+                            <span class="admin-count" id="adminCount"></span>
+                        </div>
+                        <button id="adminLogoutBtn" class="btn btn-secondary">Logout</button>
+                    </div>
+                    <div id="adminPinList" class="admin-pin-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Leaflet MarkerCluster JS -->
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
+    <script src="translations.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

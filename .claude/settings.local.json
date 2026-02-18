@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "Bash(curl:*)",
+      "Bash(pkill:*)",
+      "Bash(printf:*)",
+      "Bash(pgrep:*)",
+      "Bash(node:*)",
+      "WebFetch(domain:lcl.media.mit.edu)"
+    ]
+  }
+}
