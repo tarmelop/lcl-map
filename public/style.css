@@ -154,6 +154,17 @@ header h1 {
     box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
 
+/* Footer */
+.app-footer {
+    text-align: center;
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+    color: #888;
+    background: white;
+    border-top: 1px solid #eee;
+    flex-shrink: 0;
+}
+
 /* Map */
 #map {
     flex: 1;
@@ -218,6 +229,13 @@ header h1 {
 .btn-small {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
+}
+
+/* Field hint text */
+.field-hint {
+    margin-top: 0.35rem;
+    font-size: 0.8rem;
+    color: #888;
 }
 
 /* Modal */
@@ -406,7 +424,7 @@ header h1 {
 }
 
 .popup-content p {
-    margin-bottom: 0.5rem;
+    margin: 10px 0;
     color: #555;
     line-height: 1.5;
 }
@@ -414,6 +432,27 @@ header h1 {
 .popup-content small {
     color: #7f8c8d;
     font-size: 0.85rem;
+}
+
+.forum-link {
+    display: block;
+    margin-bottom: 0.2rem;
+    font-size: 0.9rem;
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.forum-link:hover {
+    text-decoration: underline;
+    color: #2980b9;
+}
+
+.pin-greeting {
+    margin: 0 0 0.3rem;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #555;
 }
 
 /* Mobile Responsiveness */

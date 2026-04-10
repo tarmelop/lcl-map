@@ -10,9 +10,12 @@ const translations = {
         modalTitleEdit: "Edit Your Pin",
         // Form
         nameLabel: "Name",
-        aboutLabel: "About Me",
+        forumUsernameLabel: "LCL Forum Username",
+        greetingLabel: "Your message",
+        greetingHint: "Write a greeting in your language(s) or anything you like",
         locationLabel: "Location",
         locationPlaceholder: "Start typing a location...",
+        locationHint: "Enter your city / town only, no full address needed",
         pinColorLabel: "Pin Color",
         randomColorButton: "Random",
         saveButton: "Save",
@@ -28,6 +31,7 @@ const translations = {
         // Confirm
         deleteConfirm: "Are you sure you want to delete your pin? This cannot be undone.",
         // Errors
+        forumUsernameInvalid: "Forum username can only contain letters, numbers, dots, dashes, and underscores",
         selectLocation: "Please select a location from the suggestions",
         saveFailed: "Failed to save pin. Please try again.",
         deleteFailed: "Failed to delete pin. Please try again.",
@@ -53,9 +57,12 @@ const translations = {
         modalTitleEdit: "Modifica il Tuo Pin",
         // Form
         nameLabel: "Nome",
-        aboutLabel: "Su di Me",
+        forumUsernameLabel: "Username Forum LCL",
+        greetingLabel: "Il tuo messaggio",
+        greetingHint: "Scrivi un saluto nella tua lingua o quello che vuoi",
         locationLabel: "Posizione",
         locationPlaceholder: "Inizia a digitare una posizione...",
+        locationHint: "Inserisci solo la tua città / paese, nessun indirizzo completo",
         pinColorLabel: "Colore del Pin",
         randomColorButton: "Casuale",
         saveButton: "Salva",
@@ -71,6 +78,7 @@ const translations = {
         // Confirm
         deleteConfirm: "Sei sicuro di voler eliminare il tuo pin? Questa azione non può essere annullata.",
         // Errors
+        forumUsernameInvalid: "Il nome utente del forum può contenere solo lettere, numeri, punti, trattini e underscore",
         selectLocation: "Seleziona una posizione dai suggerimenti",
         saveFailed: "Impossibile salvare il pin. Riprova.",
         deleteFailed: "Impossibile eliminare il pin. Riprova.",
@@ -96,9 +104,12 @@ const translations = {
         modalTitleEdit: "Editar Tu Pin",
         // Form
         nameLabel: "Nombre",
-        aboutLabel: "Sobre Mí",
+        forumUsernameLabel: "Usuario del Foro LCL",
+        greetingLabel: "Tu mensaje",
+        greetingHint: "Escribe un saludo en tu(s) idioma(s) o lo que quieras",
         locationLabel: "Ubicación",
         locationPlaceholder: "Empieza a escribir una ubicación...",
+        locationHint: "Ingresa solo tu ciudad / pueblo, sin dirección completa",
         pinColorLabel: "Color del Pin",
         randomColorButton: "Aleatorio",
         saveButton: "Guardar",
@@ -114,6 +125,7 @@ const translations = {
         // Confirm
         deleteConfirm: "¿Estás seguro de que quieres eliminar tu pin? Esto no se puede deshacer.",
         // Errors
+        forumUsernameInvalid: "El nombre de usuario solo puede contener letras, números, puntos, guiones y guiones bajos",
         selectLocation: "Por favor selecciona una ubicación de las sugerencias",
         saveFailed: "No se pudo guardar el pin. Por favor intenta de nuevo.",
         deleteFailed: "No se pudo eliminar el pin. Por favor intenta de nuevo.",
@@ -139,9 +151,12 @@ const translations = {
         modalTitleEdit: "Editar Seu Pin",
         // Form
         nameLabel: "Nome",
-        aboutLabel: "Sobre Mim",
+        forumUsernameLabel: "Usuário do Fórum LCL",
+        greetingLabel: "Sua mensagem",
+        greetingHint: "Escreva uma saudação na(s) sua(s) língua(s) ou o que quiser",
         locationLabel: "Localização",
         locationPlaceholder: "Comece a digitar uma localização...",
+        locationHint: "Insira apenas sua cidade / município, sem endereço completo",
         pinColorLabel: "Cor do Pin",
         randomColorButton: "Aleatório",
         saveButton: "Salvar",
@@ -157,6 +172,7 @@ const translations = {
         // Confirm
         deleteConfirm: "Tem certeza de que deseja excluir seu pin? Isso não pode ser desfeito.",
         // Errors
+        forumUsernameInvalid: "O nome de usuário só pode conter letras, números, pontos, hífens e underscores",
         selectLocation: "Por favor, selecione uma localização das sugestões",
         saveFailed: "Falha ao salvar o pin. Por favor, tente novamente.",
         deleteFailed: "Falha ao excluir o pin. Por favor, tente novamente.",
@@ -182,9 +198,12 @@ const translations = {
         modalTitleEdit: "تعديل الدبوس الخاص بك",
         // Form
         nameLabel: "الاسم",
-        aboutLabel: "عني",
+        forumUsernameLabel: "اسم المستخدم في منتدى LCL",
+        greetingLabel: "رسالتك",
+        greetingHint: "اكتب تحية بلغتك أو أي شيء تريده",
         locationLabel: "الموقع",
         locationPlaceholder: "ابدأ بكتابة موقع...",
+        locationHint: "أدخل مدينتك / بلدتك فقط، بدون عنوان كامل",
         pinColorLabel: "لون الدبوس",
         randomColorButton: "عشوائي",
         saveButton: "حفظ",
@@ -200,6 +219,7 @@ const translations = {
         // Confirm
         deleteConfirm: "هل أنت متأكد أنك تريد حذف الدبوس الخاص بك؟ لا يمكن التراجع عن هذا.",
         // Errors
+        forumUsernameInvalid: "اسم المستخدم يمكن أن يحتوي فقط على أحرف وأرقام ونقاط وشرطات وشرطات سفلية",
         selectLocation: "الرجاء تحديد موقع من الاقتراحات",
         saveFailed: "فشل في حفظ الدبوس. الرجاء المحاولة مرة أخرى.",
         deleteFailed: "فشل في حذف الدبوس. الرجاء المحاولة مرة أخرى.",
@@ -225,9 +245,12 @@ const translations = {
         modalTitleEdit: "Modifier Votre Épingle",
         // Form
         nameLabel: "Nom",
-        aboutLabel: "À Propos de Moi",
+        forumUsernameLabel: "Pseudo du Forum LCL",
+        greetingLabel: "Votre message",
+        greetingHint: "Écrivez un message dans votre/vos langue(s) ou ce que vous voulez",
         locationLabel: "Emplacement",
         locationPlaceholder: "Commencez à taper un emplacement...",
+        locationHint: "Indiquez uniquement votre ville / commune, pas d'adresse complète",
         pinColorLabel: "Couleur de l'Épingle",
         randomColorButton: "Aléatoire",
         saveButton: "Enregistrer",
@@ -243,6 +266,7 @@ const translations = {
         // Confirm
         deleteConfirm: "Êtes-vous sûr de vouloir supprimer votre épingle ? Cela ne peut pas être annulé.",
         // Errors
+        forumUsernameInvalid: "Le pseudo ne peut contenir que des lettres, chiffres, points, tirets et underscores",
         selectLocation: "Veuillez sélectionner un emplacement parmi les suggestions",
         saveFailed: "Échec de l'enregistrement de l'épingle. Veuillez réessayer.",
         deleteFailed: "Échec de la suppression de l'épingle. Veuillez réessayer.",
@@ -268,9 +292,12 @@ const translations = {
         modalTitleEdit: "İğnenizi Düzenleyin",
         // Form
         nameLabel: "İsim",
-        aboutLabel: "Hakkımda",
+        forumUsernameLabel: "LCL Forum Kullanıcı Adı",
+        greetingLabel: "Mesajınız",
+        greetingHint: "Kendi dilinizde bir selam veya istediğiniz bir şey yazın",
         locationLabel: "Konum",
         locationPlaceholder: "Bir konum yazmaya başlayın...",
+        locationHint: "Yalnızca şehrinizi / ilçenizi girin, tam adres gerekmez",
         pinColorLabel: "İğne Rengi",
         randomColorButton: "Rastgele",
         saveButton: "Kaydet",
@@ -286,6 +313,7 @@ const translations = {
         // Confirm
         deleteConfirm: "İğnenizi silmek istediğinizden emin misiniz? Bu geri alınamaz.",
         // Errors
+        forumUsernameInvalid: "Kullanıcı adı yalnızca harf, rakam, nokta, tire ve alt çizgi içerebilir",
         selectLocation: "Lütfen önerilerden bir konum seçin",
         saveFailed: "İğne kaydedilemedi. Lütfen tekrar deneyin.",
         deleteFailed: "İğne silinemedi. Lütfen tekrar deneyin.",
@@ -311,9 +339,12 @@ const translations = {
         modalTitleEdit: "ピンを編集",
         // Form
         nameLabel: "名前",
-        aboutLabel: "自己紹介",
+        forumUsernameLabel: "LCLフォーラムのユーザー名",
+        greetingLabel: "あなたのメッセージ",
+        greetingHint: "あなたの言語で挨拶や好きなことを書いてください",
         locationLabel: "場所",
         locationPlaceholder: "場所を入力してください...",
+        locationHint: "市区町村のみ入力してください — 詳細な住所は不要です",
         pinColorLabel: "ピンの色",
         randomColorButton: "ランダム",
         saveButton: "保存",
@@ -329,6 +360,7 @@ const translations = {
         // Confirm
         deleteConfirm: "ピンを削除してもよろしいですか？この操作は元に戻せません。",
         // Errors
+        forumUsernameInvalid: "ユーザー名には英数字、ピリオド、ハイフン、アンダースコアのみ使用できます",
         selectLocation: "候補から場所を選択してください",
         saveFailed: "ピンの保存に失敗しました。もう一度お試しください。",
         deleteFailed: "ピンの削除に失敗しました。もう一度お試しください。",

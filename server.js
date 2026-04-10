@@ -89,7 +89,7 @@ app.get('/api/pins/:editToken', async (req, res) => {
 // Create new pin
 app.post('/api/pins', async (req, res) => {
     try {
-        const { name, about, location, color, lat, lng } = req.body;
+        const { name, forumUsername, greeting, about, location, color, lat, lng } = req.body;
 
         // Validation
         if (!name || !location || !lat || !lng) {
@@ -104,12 +104,18 @@ app.post('/api/pins', async (req, res) => {
             return res.status(400).json({ error: 'About is too long' });
         }
 
+        if (greeting && greeting.length > 150) {
+            return res.status(400).json({ error: 'Greeting is too long' });
+        }
+
         const pins = await readPins();
 
         const newPin = {
             id: uuidv4(),
             editToken: uuidv4(),
             name: name.trim(),
+            forumUsername: forumUsername ? forumUsername.trim().replace(/^@/, '') : '',
+            greeting: greeting ? greeting.trim() : '',
             about: about ? about.trim() : '',
             location: location.trim(),
             color: color || '#3498db',
@@ -131,7 +137,7 @@ app.post('/api/pins', async (req, res) => {
 // Update pin
 app.put('/api/pins/:editToken', async (req, res) => {
     try {
-        const { name, about, location, color, lat, lng } = req.body;
+        const { name, forumUsername, greeting, about, location, color, lat, lng } = req.body;
         const { editToken } = req.params;
 
         // Validation
@@ -149,6 +155,8 @@ app.put('/api/pins/:editToken', async (req, res) => {
         pins[pinIndex] = {
             ...pins[pinIndex],
             name: name.trim(),
+            forumUsername: forumUsername !== undefined ? forumUsername.trim().replace(/^@/, '') : (pins[pinIndex].forumUsername || ''),
+            greeting: greeting !== undefined ? greeting.trim() : (pins[pinIndex].greeting || ''),
             about: about ? about.trim() : '',
             location: location.trim(),
             color: color || pins[pinIndex].color || '#3498db',

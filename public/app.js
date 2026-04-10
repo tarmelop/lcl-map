@@ -115,7 +115,8 @@ let adminPassword = '';
 
 // Form elements
 const nameInput = document.getElementById('name');
-const aboutInput = document.getElementById('about');
+const forumUsernameInput = document.getElementById('forumUsername');
+const greetingInput = document.getElementById('greeting');
 const locationInput = document.getElementById('location');
 const pinColorInput = document.getElementById('pinColor');
 const randomColorBtn = document.getElementById('randomColorBtn');
@@ -233,7 +234,7 @@ locationInput.addEventListener('input', async (e) => {
     searchTimeout = setTimeout(async () => {
         try {
             const langParam = currentLang !== 'en' ? `&accept-language=${currentLang}` : '';
-            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5${langParam}`);
+            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=10&featuretype=settlement${langParam}`);
             const results = await response.json();
 
             displaySuggestions(results);
@@ -304,9 +305,15 @@ function addMarkerToMap(pin) {
     // Admin edit button in popup (only if admin and editToken is available)
     const adminEditButton = (isAdmin && pin.editToken) ? `<button class="btn btn-small btn-primary" onclick="editPinFromMap('${pin.editToken}')" style="margin-top: 0.5rem;">Edit Pin</button>` : '';
 
+    const forumLink = pin.forumUsername
+        ? `<a class="forum-link" href="https://lcl-forum.media.mit.edu/u/${encodeURIComponent(pin.forumUsername)}/activity" target="_blank" rel="noopener">@${escapeHtml(pin.forumUsername)}</a>`
+        : '';
+
     const popupContent = `
         <div class="popup-content">
             <h3>${escapeHtml(pin.name)}</h3>
+            ${forumLink}
+            ${pin.greeting ? `<p class="pin-greeting">${escapeHtml(pin.greeting)}</p>` : ''}
             ${pin.about ? `<p>${escapeHtml(pin.about)}</p>` : ''}
             <small>${escapeHtml(pin.location)}</small>
             ${adminEditButton}
@@ -330,7 +337,8 @@ function openModal(pin = null) {
         // Edit mode
         modalTitle.textContent = t.modalTitleEdit;
         nameInput.value = pin.name;
-        aboutInput.value = pin.about || '';
+        forumUsernameInput.value = pin.forumUsername || '';
+        greetingInput.value = pin.greeting || '';
         locationInput.value = pin.location;
         pinColorInput.value = pin.color || '#3498db';
         latInput.value = pin.lat;
@@ -357,9 +365,17 @@ async function handleSubmit(e) {
     e.preventDefault();
     const t = translations[currentLang];
 
+    const rawUsername = forumUsernameInput.value.trim().replace(/^@/, '');
+    if (rawUsername && !/^[a-zA-Z0-9._-]+$/.test(rawUsername)) {
+        alert(t.forumUsernameInvalid);
+        forumUsernameInput.focus();
+        return;
+    }
+
     const pinData = {
         name: nameInput.value,
-        about: aboutInput.value,
+        forumUsername: rawUsername,
+        greeting: greetingInput.value.trim(),
         location: locationInput.value,
         color: pinColorInput.value,
         lat: parseFloat(latInput.value),
@@ -718,10 +734,13 @@ function updateUILanguage() {
 
     // Form labels
     document.querySelector('label[for="name"]').textContent = `${t.nameLabel} *`;
-    document.querySelector('label[for="about"]').textContent = t.aboutLabel;
+    document.querySelector('label[for="forumUsername"]').textContent = t.forumUsernameLabel;
+    document.getElementById('greetingLabel').textContent = t.greetingLabel;
+    document.getElementById('greetingHint').textContent = t.greetingHint;
     document.querySelector('label[for="location"]').textContent = `${t.locationLabel} *`;
     document.querySelector('label[for="pinColor"]').textContent = t.pinColorLabel;
     locationInput.placeholder = t.locationPlaceholder;
+    document.getElementById('locationHint').textContent = t.locationHint;
 
     // Buttons
     randomColorBtn.textContent = `🎲 ${t.randomColorButton}`;
