@@ -126,6 +126,9 @@ const editTokenInput = document.getElementById('editToken');
 const locationSuggestions = document.getElementById('locationSuggestions');
 const editLinkInput = document.getElementById('editLink');
 const copyBtn = document.getElementById('copyBtn');
+const adminEditLinkSection = document.getElementById('adminEditLinkSection');
+const adminEditLinkInput = document.getElementById('adminEditLinkInput');
+const adminCopyEditLinkBtn = document.getElementById('adminCopyEditLinkBtn');
 
 // Language selector
 const languageSelector = document.getElementById('languageSelector');
@@ -159,6 +162,7 @@ cancelBtn.addEventListener('click', closeModal);
 pinForm.addEventListener('submit', handleSubmit);
 deleteBtn.addEventListener('click', handleDelete);
 copyBtn.addEventListener('click', copyEditLink);
+adminCopyEditLinkBtn.addEventListener('click', copyAdminEditLink);
 randomColorBtn.addEventListener('click', () => {
     pinColorInput.value = getRandomColor();
 });
@@ -345,6 +349,11 @@ function openModal(pin = null) {
         lngInput.value = pin.lng;
         editTokenInput.value = pin.editToken;
         deleteBtn.style.display = 'inline-block';
+        // Show edit link to admin
+        if (isAdmin && pin.editToken) {
+            adminEditLinkInput.value = `${window.location.origin}/?edit=${pin.editToken}`;
+            adminEditLinkSection.style.display = 'block';
+        }
     } else {
         // Add mode
         modalTitle.textContent = t.modalTitleAdd;
@@ -352,6 +361,7 @@ function openModal(pin = null) {
         pinColorInput.value = getRandomColor();
         editTokenInput.value = '';
         deleteBtn.style.display = 'none';
+        adminEditLinkSection.style.display = 'none';
     }
 }
 
@@ -359,6 +369,7 @@ function closeModal() {
     modal.style.display = 'none';
     pinForm.reset();
     locationSuggestions.innerHTML = '';
+    adminEditLinkSection.style.display = 'none';
 }
 
 async function handleSubmit(e) {
@@ -486,6 +497,17 @@ function copyEditLink() {
     copyBtn.textContent = t.copiedButton;
     setTimeout(() => {
         copyBtn.textContent = t.copyButton;
+    }, 2000);
+}
+
+function copyAdminEditLink() {
+    const t = translations[currentLang];
+
+    adminEditLinkInput.select();
+    document.execCommand('copy');
+    adminCopyEditLinkBtn.textContent = t.copiedButton;
+    setTimeout(() => {
+        adminCopyEditLinkBtn.textContent = t.copyButton;
     }, 2000);
 }
 
