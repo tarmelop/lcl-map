@@ -306,7 +306,7 @@ function addMarkerToMap(pin) {
     const adminEditButton = (isAdmin && pin.editToken) ? `<button class="btn btn-small btn-primary" onclick="editPinFromMap('${pin.editToken}')" style="margin-top: 0.5rem;">Edit Pin</button>` : '';
 
     const forumLink = pin.forumUsername
-        ? `<a class="forum-link" href="https://lcl-forum.media.mit.edu/u/${encodeURIComponent(pin.forumUsername)}/activity" target="_blank" rel="noopener">@${escapeHtml(pin.forumUsername)}</a>`
+        ? `<a class="forum-link" href="https://lcl-forum.media.mit.edu/u/${encodeURIComponent(pin.forumUsername)}/summary" target="_blank" rel="noopener">@${escapeHtml(pin.forumUsername)}</a>`
         : '';
 
     const popupContent = `
