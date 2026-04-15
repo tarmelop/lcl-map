@@ -39,8 +39,15 @@
             </div>
             <div class="header-bottom">
                 <div class="header-bottom-left">
-                    <div class="counter">
+                    <div class="counter" id="counterBtn">
                         <span id="participantCount">0</span> <span id="participantLabel">Participants</span>
+                    </div>
+                    <div id="searchPanel" class="search-panel" style="display:none;">
+                        <div class="search-panel-input">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="searchInput" placeholder="Search by name or username...">
+                        </div>
+                        <div id="searchResults" class="search-results"></div>
                     </div>
                     <div class="decorative-pegs-bottom-left">
                         <span class="peg peg-green"></span>

@@ -6,8 +6,11 @@ let allPinsData = [];
 // Initialize the map
 const map = L.map('map', {
     maxZoom: 19,
-    minZoom: 2
+    minZoom: 2,
+    zoomControl: false
 }).setView([20, 0], 2);
+
+L.control.zoom({ position: 'bottomleft' }).addTo(map);
 
 // Store current tile layer
 let currentTileLayer = null;
@@ -125,6 +128,7 @@ let adminPassword = '';
 // Form elements
 const nameInput = document.getElementById('name');
 const forumUsernameInput = document.getElementById('forumUsername');
+const searchInput = document.getElementById('searchInput');
 const greetingInput = document.getElementById('greeting');
 const locationInput = document.getElementById('location');
 const pinColorInput = document.getElementById('pinColor');
@@ -769,6 +773,7 @@ function updateUILanguage() {
     document.querySelector('label[for="location"]').textContent = `${t.locationLabel} *`;
     document.querySelector('label[for="pinColor"]').textContent = t.pinColorLabel;
     locationInput.placeholder = t.locationPlaceholder;
+    searchInput.placeholder = t.searchPlaceholder;
     document.getElementById('locationHint').textContent = t.locationHint;
 
     // Buttons
@@ -819,6 +824,65 @@ if (editToken) {
         });
 }
 
+// Search panel (event wiring below, after escapeHtml is defined)
+const counterBtn = document.getElementById('counterBtn');
+const searchPanel = document.getElementById('searchPanel');
+const searchResults = document.getElementById('searchResults');
+
+counterBtn.addEventListener('click', () => {
+    const isOpen = searchPanel.style.display !== 'none';
+    if (isOpen) {
+        closeSearchPanel();
+    } else {
+        searchPanel.style.display = 'block';
+        searchInput.value = '';
+        renderSearchResults(allPinsData);
+        searchInput.focus();
+    }
+});
+
+searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    const filtered = q
+        ? allPinsData.filter(p =>
+            p.name.toLowerCase().includes(q) ||
+            (p.forumUsername && p.forumUsername.toLowerCase().includes(q)))
+        : allPinsData;
+    renderSearchResults(filtered);
+});
+
+function renderSearchResults(pins) {
+    if (pins.length === 0) {
+        searchResults.innerHTML = `<div class="search-no-results">No results found</div>`;
+        return;
+    }
+    searchResults.innerHTML = pins.map(p => `
+        <div class="search-result-item" data-id="${p.id}">
+            <span class="search-result-name">${escapeHtml(p.name)}</span>
+            <span class="search-result-location">${escapeHtml(p.location)}</span>
+        </div>
+    `).join('');
+    searchResults.querySelectorAll('.search-result-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const pin = allPinsData.find(p => p.id === item.dataset.id);
+            if (!pin) return;
+            closeSearchPanel();
+            map.setView([pin.lat, pin.lng], 8, { animate: true });
+            setTimeout(() => {
+                const marker = markers[pin.id];
+                if (marker) {
+                    markerCluster.zoomToShowLayer(marker, () => marker.openPopup());
+                }
+            }, 400);
+        });
+    });
+}
+
+function closeSearchPanel() {
+    searchPanel.style.display = 'none';
+    searchInput.value = '';
+}
+
 // Close modals when clicking outside
 window.addEventListener('click', (e) => {
     if (e.target === modal) {
@@ -826,5 +890,8 @@ window.addEventListener('click', (e) => {
     }
     if (e.target === adminModal) {
         closeAdminModal();
+    }
+    if (!searchPanel.contains(e.target) && !counterBtn.contains(e.target)) {
+        closeSearchPanel();
     }
 });

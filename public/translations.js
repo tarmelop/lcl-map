@@ -31,6 +31,7 @@ const translations = {
         // Confirm
         deleteConfirm: "Are you sure you want to delete your pin? This cannot be undone.",
         // Errors
+        searchPlaceholder: "Search by name or username...",
         forumUsernameInvalid: "Forum username can only contain letters, numbers, dots, dashes, and underscores",
         selectLocation: "Please select a location from the suggestions",
         saveFailed: "Failed to save pin. Please try again.",
@@ -78,6 +79,7 @@ const translations = {
         // Confirm
         deleteConfirm: "Sei sicuro di voler eliminare il tuo pin? Questa azione non può essere annullata.",
         // Errors
+        searchPlaceholder: "Cerca per nome o username...",
         forumUsernameInvalid: "Il nome utente del forum può contenere solo lettere, numeri, punti, trattini e underscore",
         selectLocation: "Seleziona una posizione dai suggerimenti",
         saveFailed: "Impossibile salvare il pin. Riprova.",
@@ -125,6 +127,7 @@ const translations = {
         // Confirm
         deleteConfirm: "¿Estás seguro de que quieres eliminar tu pin? Esto no se puede deshacer.",
         // Errors
+        searchPlaceholder: "Buscar por nombre o usuario...",
         forumUsernameInvalid: "El nombre de usuario solo puede contener letras, números, puntos, guiones y guiones bajos",
         selectLocation: "Por favor selecciona una ubicación de las sugerencias",
         saveFailed: "No se pudo guardar el pin. Por favor intenta de nuevo.",
@@ -172,6 +175,7 @@ const translations = {
         // Confirm
         deleteConfirm: "Tem certeza de que deseja excluir seu pin? Isso não pode ser desfeito.",
         // Errors
+        searchPlaceholder: "Pesquisar por nome ou usuário...",
         forumUsernameInvalid: "O nome de usuário só pode conter letras, números, pontos, hífens e underscores",
         selectLocation: "Por favor, selecione uma localização das sugestões",
         saveFailed: "Falha ao salvar o pin. Por favor, tente novamente.",
@@ -219,6 +223,7 @@ const translations = {
         // Confirm
         deleteConfirm: "هل أنت متأكد أنك تريد حذف الدبوس الخاص بك؟ لا يمكن التراجع عن هذا.",
         // Errors
+        searchPlaceholder: "ابحث بالاسم أو اسم المستخدم...",
         forumUsernameInvalid: "اسم المستخدم يمكن أن يحتوي فقط على أحرف وأرقام ونقاط وشرطات وشرطات سفلية",
         selectLocation: "الرجاء تحديد موقع من الاقتراحات",
         saveFailed: "فشل في حفظ الدبوس. الرجاء المحاولة مرة أخرى.",
@@ -266,6 +271,7 @@ const translations = {
         // Confirm
         deleteConfirm: "Êtes-vous sûr de vouloir supprimer votre épingle ? Cela ne peut pas être annulé.",
         // Errors
+        searchPlaceholder: "Rechercher par nom ou pseudo...",
         forumUsernameInvalid: "Le pseudo ne peut contenir que des lettres, chiffres, points, tirets et underscores",
         selectLocation: "Veuillez sélectionner un emplacement parmi les suggestions",
         saveFailed: "Échec de l'enregistrement de l'épingle. Veuillez réessayer.",
@@ -313,6 +319,7 @@ const translations = {
         // Confirm
         deleteConfirm: "İğnenizi silmek istediğinizden emin misiniz? Bu geri alınamaz.",
         // Errors
+        searchPlaceholder: "İsim veya kullanıcı adıyla ara...",
         forumUsernameInvalid: "Kullanıcı adı yalnızca harf, rakam, nokta, tire ve alt çizgi içerebilir",
         selectLocation: "Lütfen önerilerden bir konum seçin",
         saveFailed: "İğne kaydedilemedi. Lütfen tekrar deneyin.",
@@ -360,6 +367,7 @@ const translations = {
         // Confirm
         deleteConfirm: "ピンを削除してもよろしいですか？この操作は元に戻せません。",
         // Errors
+        searchPlaceholder: "名前またはユーザー名で検索...",
         forumUsernameInvalid: "ユーザー名には英数字、ピリオド、ハイフン、アンダースコアのみ使用できます",
         selectLocation: "候補から場所を選択してください",
         saveFailed: "ピンの保存に失敗しました。もう一度お試しください。",
