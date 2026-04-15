@@ -63,25 +63,34 @@ async function loadConfig() {
         const config = await response.json();
         USE_MAPTILER = config.useMapTiler;
         MAPTILER_API_KEY = config.mapTilerApiKey;
-        console.log('Config loaded - useMapTiler:', USE_MAPTILER, 'API key:', MAPTILER_API_KEY ? MAPTILER_API_KEY.substring(0, 5) + '...' : 'none');
+        const clusterRadius = config.clusterRadius !== undefined ? config.clusterRadius : 40;
+        console.log('Config loaded - useMapTiler:', USE_MAPTILER, 'clusterRadius:', clusterRadius);
         updateMapTiles();
+        initCluster(clusterRadius);
     } catch (error) {
         console.error('Error loading config:', error);
-        updateMapTiles(); // Fall back to default
+        updateMapTiles();
+        initCluster(40); // Fall back to default
     }
 }
 
-// Initialize map tiles after loading config
+function initCluster(radius) {
+    markerCluster = L.markerClusterGroup({
+        maxClusterRadius: radius,
+        chunkedLoading: true,
+        spiderfyOnMaxZoom: true,
+        showCoverageOnHover: false,
+        zoomToBoundsOnClick: true
+    });
+    map.addLayer(markerCluster);
+    loadPins();
+}
+
+// Initialize map tiles and cluster after loading config
 loadConfig();
 
-// Initialize marker cluster group
-const markerCluster = L.markerClusterGroup({
-    chunkedLoading: true,
-    spiderfyOnMaxZoom: true,
-    showCoverageOnHover: false,
-    zoomToBoundsOnClick: true
-});
-map.addLayer(markerCluster);
+// Initialized in loadConfig once clusterRadius is known
+let markerCluster;
 
 // Store markers
 const markers = {};
@@ -139,8 +148,6 @@ const participantCount = document.getElementById('participantCount');
 // Debounce function for autocomplete
 let searchTimeout;
 
-// Load all pins on page load
-loadPins();
 
 // Generate random color
 function getRandomColor() {

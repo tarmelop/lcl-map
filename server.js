@@ -52,7 +52,8 @@ async function writePins(pins) {
 app.get('/api/config', async (req, res) => {
     res.json({
         mapTilerApiKey: config.mapTilerApiKey,
-        useMapTiler: config.useMapTiler
+        useMapTiler: config.useMapTiler,
+        clusterRadius: config.clusterRadius !== undefined ? config.clusterRadius : 40
     });
 });
 
