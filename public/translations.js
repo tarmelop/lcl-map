@@ -25,7 +25,10 @@ const translations = {
         // Success message
         successTitle: "Success!",
         successMessage: "Your pin has been added to the map.",
-        successEditMessage: "Save this link to edit or delete your pin later:",
+        publicLinkLabel: "🔗 Public link",
+        adminEditLinkLabel: "🔒 User's edit link",
+        successPublicMessage: "Share this link to show your pin:",
+        successEditMessage: "Save this private link to edit or delete your pin:",
         copyButton: "Copy",
         copiedButton: "Copied!",
         // Confirm
@@ -73,7 +76,10 @@ const translations = {
         // Success message
         successTitle: "Successo!",
         successMessage: "Il tuo pin è stato aggiunto alla mappa.",
-        successEditMessage: "Salva questo link per modificare o eliminare il tuo pin in seguito:",
+        publicLinkLabel: "🔗 Link pubblico",
+        adminEditLinkLabel: "🔒 Link di modifica dell'utente",
+        successPublicMessage: "Condividi questo link per mostrare il tuo pin:",
+        successEditMessage: "Salva questo link privato per modificare o eliminare il tuo pin:",
         copyButton: "Copia",
         copiedButton: "Copiato!",
         // Confirm
@@ -121,7 +127,10 @@ const translations = {
         // Success message
         successTitle: "¡Éxito!",
         successMessage: "Tu pin ha sido agregado al mapa.",
-        successEditMessage: "Guarda este enlace para editar o eliminar tu pin más tarde:",
+        publicLinkLabel: "🔗 Enlace público",
+        adminEditLinkLabel: "🔒 Enlace de edición del usuario",
+        successPublicMessage: "Comparte este enlace para mostrar tu pin:",
+        successEditMessage: "Guarda este enlace privado para editar o eliminar tu pin:",
         copyButton: "Copiar",
         copiedButton: "¡Copiado!",
         // Confirm
@@ -169,7 +178,10 @@ const translations = {
         // Success message
         successTitle: "Sucesso!",
         successMessage: "Seu pin foi adicionado ao mapa.",
-        successEditMessage: "Salve este link para editar ou excluir seu pin mais tarde:",
+        publicLinkLabel: "🔗 Link público",
+        adminEditLinkLabel: "🔒 Link de edição do usuário",
+        successPublicMessage: "Compartilhe este link para mostrar seu pin:",
+        successEditMessage: "Salve este link privado para editar ou excluir seu pin:",
         copyButton: "Copiar",
         copiedButton: "Copiado!",
         // Confirm
@@ -217,7 +229,10 @@ const translations = {
         // Success message
         successTitle: "نجح!",
         successMessage: "تمت إضافة الدبوس الخاص بك إلى الخريطة.",
-        successEditMessage: "احفظ هذا الرابط لتعديل أو حذف الدبوس الخاص بك لاحقًا:",
+        publicLinkLabel: "🔗 رابط عام",
+        adminEditLinkLabel: "🔒 رابط تعديل المستخدم",
+        successPublicMessage: "شارك هذا الرابط لإظهار دبوسك:",
+        successEditMessage: "احفظ هذا الرابط الخاص لتعديل أو حذف الدبوس الخاص بك:",
         copyButton: "نسخ",
         copiedButton: "تم النسخ!",
         // Confirm
@@ -265,7 +280,10 @@ const translations = {
         // Success message
         successTitle: "Succès !",
         successMessage: "Votre épingle a été ajoutée à la carte.",
-        successEditMessage: "Enregistrez ce lien pour modifier ou supprimer votre épingle plus tard :",
+        publicLinkLabel: "🔗 Lien public",
+        adminEditLinkLabel: "🔒 Lien de modification de l'utilisateur",
+        successPublicMessage: "Partagez ce lien pour montrer votre épingle :",
+        successEditMessage: "Gardez ce lien privé pour modifier ou supprimer votre épingle :",
         copyButton: "Copier",
         copiedButton: "Copié !",
         // Confirm
@@ -313,7 +331,10 @@ const translations = {
         // Success message
         successTitle: "Başarılı!",
         successMessage: "İğneniz haritaya eklendi.",
-        successEditMessage: "İğnenizi daha sonra düzenlemek veya silmek için bu bağlantıyı kaydedin:",
+        publicLinkLabel: "🔗 Herkese açık bağlantı",
+        adminEditLinkLabel: "🔒 Kullanıcının düzenleme bağlantısı",
+        successPublicMessage: "İğnenizi göstermek için bu bağlantıyı paylaşın:",
+        successEditMessage: "İğnenizi düzenlemek veya silmek için bu özel bağlantıyı kaydedin:",
         copyButton: "Kopyala",
         copiedButton: "Kopyalandı!",
         // Confirm
@@ -361,7 +382,10 @@ const translations = {
         // Success message
         successTitle: "成功！",
         successMessage: "ピンがマップに追加されました。",
-        successEditMessage: "後でピンを編集または削除するには、このリンクを保存してください：",
+        publicLinkLabel: "🔗 公開リンク",
+        adminEditLinkLabel: "🔒 ユーザーの編集リンク",
+        successPublicMessage: "このリンクを共有してピンを見せましょう：",
+        successEditMessage: "ピンを編集・削除するには、このプライベートリンクを保存してください：",
         copyButton: "コピー",
         copiedButton: "コピーしました！",
         // Confirm

@@ -139,9 +139,14 @@ const editTokenInput = document.getElementById('editToken');
 const locationSuggestions = document.getElementById('locationSuggestions');
 const editLinkInput = document.getElementById('editLink');
 const copyBtn = document.getElementById('copyBtn');
+const publicLinkInput = document.getElementById('publicLink');
+const copyPublicBtn = document.getElementById('copyPublicBtn');
 const adminEditLinkSection = document.getElementById('adminEditLinkSection');
 const adminEditLinkInput = document.getElementById('adminEditLinkInput');
 const adminCopyEditLinkBtn = document.getElementById('adminCopyEditLinkBtn');
+const pinPublicLinkSection = document.getElementById('pinPublicLinkSection');
+const pinPublicLinkInput = document.getElementById('pinPublicLinkInput');
+const copyPinPublicLinkBtn = document.getElementById('copyPinPublicLinkBtn');
 
 // Language selector
 const languageSelector = document.getElementById('languageSelector');
@@ -173,6 +178,14 @@ cancelBtn.addEventListener('click', closeModal);
 pinForm.addEventListener('submit', handleSubmit);
 deleteBtn.addEventListener('click', handleDelete);
 copyBtn.addEventListener('click', copyEditLink);
+copyPublicBtn.addEventListener('click', copyPublicLink);
+copyPinPublicLinkBtn.addEventListener('click', () => {
+    const t = translations[currentLang];
+    pinPublicLinkInput.select();
+    document.execCommand('copy');
+    copyPinPublicLinkBtn.textContent = t.copiedButton;
+    setTimeout(() => { copyPinPublicLinkBtn.textContent = t.copyButton; }, 2000);
+});
 adminCopyEditLinkBtn.addEventListener('click', copyAdminEditLink);
 randomColorBtn.addEventListener('click', () => {
     pinColorInput.value = getRandomColor();
@@ -360,7 +373,10 @@ function openModal(pin = null) {
         lngInput.value = pin.lng;
         editTokenInput.value = pin.editToken;
         deleteBtn.style.display = 'inline-block';
-        // Show edit link to admin
+        // Always show public link in edit mode
+        pinPublicLinkInput.value = `${window.location.origin}/?pin=${pin.id}`;
+        pinPublicLinkSection.style.display = 'block';
+        // Show edit link to admin only
         if (isAdmin && pin.editToken) {
             adminEditLinkInput.value = `${window.location.origin}/?edit=${pin.editToken}`;
             adminEditLinkSection.style.display = 'block';
@@ -372,6 +388,7 @@ function openModal(pin = null) {
         pinColorInput.value = getRandomColor();
         editTokenInput.value = '';
         deleteBtn.style.display = 'none';
+        pinPublicLinkSection.style.display = 'none';
         adminEditLinkSection.style.display = 'none';
     }
 }
@@ -380,6 +397,7 @@ function closeModal() {
     modal.style.display = 'none';
     pinForm.reset();
     locationSuggestions.innerHTML = '';
+    pinPublicLinkSection.style.display = 'none';
     adminEditLinkSection.style.display = 'none';
 }
 
@@ -441,8 +459,8 @@ async function handleSubmit(e) {
 
         // Show success message with edit link
         if (!pinData.editToken) {
-            const editUrl = `${window.location.origin}/?edit=${result.editToken}`;
-            editLinkInput.value = editUrl;
+            publicLinkInput.value = `${window.location.origin}/?pin=${result.id}`;
+            editLinkInput.value = `${window.location.origin}/?edit=${result.editToken}`;
             pinForm.style.display = 'none';
             successMessage.style.display = 'block';
         } else {
@@ -502,13 +520,18 @@ async function handleDelete() {
 
 function copyEditLink() {
     const t = translations[currentLang];
-
     editLinkInput.select();
     document.execCommand('copy');
     copyBtn.textContent = t.copiedButton;
-    setTimeout(() => {
-        copyBtn.textContent = t.copyButton;
-    }, 2000);
+    setTimeout(() => { copyBtn.textContent = t.copyButton; }, 2000);
+}
+
+function copyPublicLink() {
+    const t = translations[currentLang];
+    publicLinkInput.select();
+    document.execCommand('copy');
+    copyPublicBtn.textContent = t.copiedButton;
+    setTimeout(() => { copyPublicBtn.textContent = t.copyButton; }, 2000);
 }
 
 function copyAdminEditLink() {
@@ -786,7 +809,10 @@ function updateUILanguage() {
     // Success message
     document.getElementById('successTitle').textContent = t.successTitle;
     document.getElementById('successMsg').textContent = t.successMessage;
+    document.getElementById('successPublicMsg').textContent = t.successPublicMessage;
     document.getElementById('successEditMsg').textContent = t.successEditMessage;
+    document.getElementById('pinPublicLinkLabel').textContent = t.publicLinkLabel;
+    document.getElementById('adminEditLinkLabel').textContent = t.adminEditLinkLabel;
 
     // Admin
     document.getElementById('adminTitle').textContent = t.adminTitle;
@@ -807,21 +833,34 @@ function updateUILanguage() {
 // Check for edit token in URL
 const editToken = urlParams.get('edit');
 if (editToken) {
-    // Load pin for editing
     fetch(`/api/pins/${editToken}`)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-        })
-        .then(pin => {
-            if (pin) {
-                openModal(pin);
-            }
-        })
-        .catch(error => {
-            console.error('Error loading pin for editing:', error);
-        });
+        .then(response => { if (response.ok) return response.json(); })
+        .then(pin => { if (pin) openModal(pin); })
+        .catch(error => console.error('Error loading pin for editing:', error));
+}
+
+// Check for public pin link in URL
+const pinId = urlParams.get('pin');
+if (pinId) {
+    // Wait for pins to load, then fly to the pin
+    const flyToPin = () => {
+        const pin = allPinsData.find(p => p.id === pinId);
+        if (pin) {
+            map.setView([pin.lat, pin.lng], 8, { animate: true });
+            setTimeout(() => {
+                const marker = markers[pin.id];
+                if (marker) markerCluster.zoomToShowLayer(marker, () => marker.openPopup());
+            }, 400);
+        }
+    };
+    // Pins may not be loaded yet — retry briefly
+    const waitForPins = setInterval(() => {
+        if (allPinsData.length > 0) {
+            clearInterval(waitForPins);
+            flyToPin();
+        }
+    }, 100);
+    setTimeout(() => clearInterval(waitForPins), 5000);
 }
 
 // Search panel (event wiring below, after escapeHtml is defined)

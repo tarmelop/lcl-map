@@ -136,8 +136,16 @@
                         <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
                     </div>
 
+                    <div id="pinPublicLinkSection" class="admin-edit-link-section" style="display:none;">
+                        <p class="admin-edit-link-label" id="pinPublicLinkLabel">🔗 Public link</p>
+                        <div class="edit-link-container">
+                            <input type="text" id="pinPublicLinkInput" readonly>
+                            <button type="button" id="copyPinPublicLinkBtn" class="btn btn-small">Copy</button>
+                        </div>
+                    </div>
+
                     <div id="adminEditLinkSection" class="admin-edit-link-section" style="display:none;">
-                        <p class="admin-edit-link-label">🔗 User's edit link</p>
+                        <p class="admin-edit-link-label" id="adminEditLinkLabel">🔒 User's edit link</p>
                         <div class="edit-link-container">
                             <input type="text" id="adminEditLinkInput" readonly>
                             <button type="button" id="adminCopyEditLinkBtn" class="btn btn-small">Copy</button>
@@ -147,7 +155,12 @@
 
                 <div id="successMessage" class="success-message" style="display: none;">
                     <p><strong id="successTitle">Success!</strong> <span id="successMsg">Your pin has been added to the map.</span></p>
-                    <p id="successEditMsg">Save this link to edit or delete your pin later:</p>
+                    <p id="successPublicMsg">Share this link to show your pin:</p>
+                    <div class="edit-link-container">
+                        <input type="text" id="publicLink" readonly>
+                        <button id="copyPublicBtn" class="btn btn-small">Copy</button>
+                    </div>
+                    <p id="successEditMsg" style="margin-top:0.75rem;">Save this private link to edit or delete your pin:</p>
                     <div class="edit-link-container">
                         <input type="text" id="editLink" readonly>
                         <button id="copyBtn" class="btn btn-small">Copy</button>
